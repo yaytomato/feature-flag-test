@@ -5003,6 +5003,11 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
+flagged@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/flagged/-/flagged-2.0.1.tgz#2900b3517a18bd0ba8e0080e7fcd1d847e921f06"
+  integrity sha512-cKkJdbHruBbi4CAufayqDs1X6PYMKE+MZmG/3mYBPZw1M0dY+tA14tDTkg5+TISQwZ7tTIzwubFZNv4lm7XENw==
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
