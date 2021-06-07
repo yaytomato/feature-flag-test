@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FlagsProvider } from "flagged";
 
 import { Home } from "./pages/Home";
 
 const App = () => {
-  const [features, setFeatures] = useState<{ [key: string]: boolean }>({});
+  const [features, setFeatures] = useState<string[]>([]);
 
   useEffect(() => {
     // TODO: fetch features from server
     setTimeout(() => {
-      setFeatures({ newFeature: true, thisFeature: true });
+      setFeatures(["PS-12389", "PS-23439"]);
     }, 1000);
   }, []);
 
