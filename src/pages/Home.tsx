@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Feature } from "flagged";
 import { Container, Typography, ButtonGroup, Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
@@ -20,10 +20,15 @@ interface HomeProps {
 }
 
 const columns = [
-  { field: "id", headerName: "ID" },
-  { field: "page", headerName: "Related page", width: 200 },
-  { field: "title", headerName: "Title", width: 200 },
-  { field: "description", headerName: "Description", width: 200 },
+  { field: "id", headerName: "ID", editable: true },
+  { field: "page", headerName: "Related page", width: 200, editable: true },
+  { field: "title", headerName: "Title", width: 200, editable: true },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 200,
+    editable: true,
+  },
 ];
 
 export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
@@ -42,6 +47,23 @@ export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
       description: "hi hello",
     },
   ]);
+  const onEdit = useCallback(
+    (changedRow) =>
+      setRows((prev) =>
+        // NOTE: immutably update a row in rows
+        prev.map((row) => {
+          if (row.id === changedRow.id) {
+            return {
+              ...row,
+              [changedRow.field]: changedRow.props.value,
+            };
+          } else {
+            return row;
+          }
+        })
+      ),
+    []
+  );
 
   return (
     <>
@@ -71,12 +93,14 @@ export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
             onSelectionModelChange={(newSelection) => {
               setFeatures(newSelection.selectionModel as string[]);
             }}
+            onEditCellChangeCommitted={onEdit}
           />
         </div>
         <ButtonGroup>
           <Button onClick={() => setShowModal(true)}>Add</Button>
           <Button>Reset</Button>
-          <Button>Save</Button>
+
+          <Button onClick={() => console.log(rows)}>Save</Button>
         </ButtonGroup>
       </Container>
 
