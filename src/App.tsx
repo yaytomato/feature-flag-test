@@ -4,7 +4,7 @@ import { FlagsProvider } from "flagged";
 import { Home } from "./pages/Home";
 
 const App = () => {
-  const [features, setFeatures] = useState({});
+  const [features, setFeatures] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     // TODO: fetch features from server
@@ -16,7 +16,7 @@ const App = () => {
   return (
     <FlagsProvider features={features}>
       <div className="App">
-        <Home />
+        <Home features={features} setFeatures={setFeatures} />
       </div>
     </FlagsProvider>
   );
