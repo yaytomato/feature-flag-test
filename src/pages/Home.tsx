@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Feature } from "flagged";
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography, ButtonGroup, Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 
 import { NewFeature } from "../components/NewFeature";
 import { ThisFeature } from "../components/ThisFeature";
 import { ThatFeature } from "../components/ThatFeature";
+import { RegisterFeatureModal } from "../components/RegisterFeatureModal";
 
+export interface IFeature {
+  id: string;
+  page?: string;
+  title?: string;
+  description?: string;
+}
 interface HomeProps {
   features: string[];
   setFeatures: React.Dispatch<React.SetStateAction<string[]>>;
@@ -19,22 +26,23 @@ const columns = [
   { field: "description", headerName: "Description", width: 200 },
 ];
 
-const rows = [
-  {
-    id: "PS-12389",
-    page: "/telemetry",
-    title: "right click disabled",
-    description: "hi hello",
-  },
-  {
-    id: "PS-23439",
-    page: "/telemetry",
-    title: "right click disabled",
-    description: "hi hello",
-  },
-];
+export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [rows, setRows] = useState<IFeature[]>([
+    {
+      id: "PS-12389",
+      page: "/telemetry",
+      title: "right click disabled",
+      description: "hi hello",
+    },
+    {
+      id: "PS-23439",
+      page: "/telemetry",
+      title: "right click disabled",
+      description: "hi hello",
+    },
+  ]);
 
-export const Home: React.FC<HomeProps> = ({ features, setFeatures }) => {
   return (
     <>
       <main>
@@ -65,7 +73,18 @@ export const Home: React.FC<HomeProps> = ({ features, setFeatures }) => {
             }}
           />
         </div>
+        <ButtonGroup>
+          <Button onClick={() => setShowModal(true)}>Add</Button>
+          <Button>Reset</Button>
+          <Button>Save</Button>
+        </ButtonGroup>
       </Container>
+
+      <RegisterFeatureModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        addToDataGrid={(row) => setRows((prev) => [...prev, row])}
+      />
     </>
   );
 };
