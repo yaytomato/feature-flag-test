@@ -104,6 +104,7 @@ export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
             columns={columns}
             rows={rows}
             checkboxSelection
+            disableSelectionOnClick
             onSelectionModelChange={(newSelection) => {
               setFeatures(newSelection.selectionModel as string[]);
             }}
@@ -129,3 +130,4 @@ export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
     </>
   );
 };
+
