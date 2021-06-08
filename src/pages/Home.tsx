@@ -1,7 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { Feature } from "flagged";
 import { Container, Typography, ButtonGroup, Button } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarFilterButton,
+  GridToolbarColumnsButton,
+  GridToolbarExport,
+} from "@material-ui/data-grid";
 
 import { NewFeature } from "../components/NewFeature";
 import { ThisFeature } from "../components/ThisFeature";
@@ -30,6 +36,14 @@ const columns = [
     editable: true,
   },
 ];
+
+const GridToolbar = () => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton />
+    <GridToolbarColumnsButton />
+    <GridToolbarExport />
+  </GridToolbarContainer>
+);
 
 export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
   const [showModal, setShowModal] = useState(false);
@@ -94,6 +108,9 @@ export const Home: React.FC<HomeProps> = ({ setFeatures }) => {
               setFeatures(newSelection.selectionModel as string[]);
             }}
             onEditCellChangeCommitted={onEdit}
+            components={{
+              Toolbar: GridToolbar,
+            }}
           />
         </div>
         <ButtonGroup>
